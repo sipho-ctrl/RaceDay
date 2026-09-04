@@ -32,12 +32,12 @@ jobs:
           exit 1
         fi
     
-    - name: Check APIEndpointPlan.pdf exists
+    - name: Check APIEndpointPlan exists (Word or PDF)
       run: |
-        if [ -f "docs/APIEndpointPlan.pdf" ]; then
-          echo "✅ APIEndpointPlan.pdf exists"
+        if [ -f "docs/APIEndpointPlan.docx" ] || [ -f "docs/APIEndpointPlan.pdf" ]; then
+          echo "✅ APIEndpointPlan exists"
         else
-          echo "❌ APIEndpointPlan.pdf missing"
+          echo "❌ APIEndpointPlan not found - please add APIEndpointPlan.docx or APIEndpointPlan.pdf"
           exit 1
         fi
     
