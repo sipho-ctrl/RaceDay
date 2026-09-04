@@ -35,13 +35,15 @@ RaceDay is a full-stack web-based event management system designed specifically 
 RaceDay/
 ├── docs/
 │ ├── ERD.pdf
-│ ├── APIEndpointPlan.pdf
-│ └── RaceDayDatabase.sql
+│ ├── APIEndpointPlan.docx
+│ ├── RaceDayDatabase.sql
+│ ├── green-build.png
+│ ├── RD DB OUTPUT I.png
+│ └── RD DB OUPUT II.png
 ├── .github/
 │ └── workflows/
 │ └── validate.yml
 └── README.md
-
 
 ## Database Setup Instructions
 1. Open SQL Server Management Studio (SSMS)
@@ -51,8 +53,17 @@ RaceDay/
 5. Verify all tables are created successfully
 6. Check sample data is inserted (run the verification queries at the end)
 
+### Database Output Verification
+The following screenshots show the successful execution of the database script:
+
+**Database Output 1:**
+![Database Output 1](docs/RD%20DB%20OUTPUT%20I.png)
+
+**Database Output 2:**
+![Database Output 2](docs/RD%20DB%20OUPUT%20II.png)
+
 ## CI/CD Status
-[TBA]
+![CI/CD Build Status](docs/green-build.png)
 
 ## Video Presentation
-[TBA]
+[Watch the presentation on YouTube](TBA)
