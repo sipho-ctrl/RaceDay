@@ -66,4 +66,4 @@ The following screenshots show the successful execution of the database script:
 ![CI/CD Build Status](docs/green-build.png)
 
 ## Video Presentation
-[Watch the presentation on YouTube](TBA)
+[Watch the presentation on YouTube](https://youtu.be/Y_KmNz_rUKI?si=70K-AUj2Sfy3JhYw)
