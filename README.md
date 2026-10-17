@@ -33,67 +33,37 @@ RaceDay is a full-stack web-based event management system designed for the South
 - **Version Control**: GitHub
 
 ## Project Structure
+
 RaceDay/
-├── docs/
-│ ├── ERD.pdf
-│ ├── APIEndpointPlan.docx
-│ ├── RaceDayDatabase.sql
-│ ├── green-build.png
-│ ├── part2-green-build.png
-│ ├── RD DB OUTPUT I.png
-│ └── RD DB OUPUT II.png
-├── RaceDayAPI/ ← Part 2 API
-│ ├── Controllers/
-│ │ ├── AuthController.cs
-│ │ ├── EventsController.cs
-│ │ ├── CategoriesController.cs
-│ │ ├── EnrolmentsController.cs
-│ │ ├── ResultsController.cs
-│ │ └── UsersController.cs
-│ ├── Models/
-│ │ ├── User.cs
-│ │ ├── Organiser.cs
-│ │ ├── Participant.cs
-│ │ ├── Event.cs
-│ │ ├── Category.cs
-│ │ ├── Enrolment.cs
-│ │ └── Result.cs
-│ ├── DTOs/
-│ │ ├── RegisterDto.cs
-│ │ ├── LoginDto.cs
-│ │ ├── AuthResponseDto.cs
-│ │ ├── CreateEventDto.cs
-│ │ ├── UpdateEventDto.cs
-│ │ ├── EventResponseDto.cs
-│ │ ├── CreateCategoryDto.cs
-│ │ ├── UpdateCategoryDto.cs
-│ │ ├── CategoryResponseDto.cs
-│ │ ├── CreateEnrolmentDto.cs
-│ │ ├── EnrolmentResponseDto.cs
-│ │ ├── CreateResultDto.cs
-│ │ ├── UpdateResultDto.cs
-│ │ ├── ResultResponseDto.cs
-│ │ ├── UserProfileDto.cs
-│ │ └── UpdateProfileDto.cs
-│ ├── Data/
-│ │ └── RaceDayDbContext.cs
-│ ├── Services/
-│ │ ├── IAuthService.cs
-│ │ └── AuthService.cs
-│ ├── Helpers/
-│ ├── Program.cs
-│ └── appsettings.json
-├── RaceDayAPI.Tests/ ← Unit tests
-│ ├── TestHelper.cs
-│ ├── AuthServiceTests.cs
-│ ├── EventsControllerTests.cs
-│ ├── RoleBasedAccessTests.cs
-│ └── EnrolmentTests.cs
-├── .github/workflows/
-│ └── validate.yml
-└── README.md
+    docs/
+        ERD.pdf
+        APIEndpointPlan.docx
+        RaceDayDatabase.sql
+        green-build.png
+        part2-green-build.png
+        RD DB OUTPUT I.png
+        RD DB OUPUT II.png
+    RaceDayAPI/
+        Controllers/
+        Models/
+        DTOs/
+        Data/
+        Services/
+        Helpers/
+        Program.cs
+        appsettings.json
+    RaceDayAPI.Tests/
+        TestHelper.cs
+        AuthServiceTests.cs
+        EventsControllerTests.cs
+        RoleBasedAccessTests.cs
+        EnrolmentTests.cs
+    .github/
+        workflows/
+            validate.yml
+    README.md
 
-
+    
 ## API Endpoints Implemented
 
 ### Authentication
@@ -168,37 +138,37 @@ The database uses Entity Framework Core Code-First with the following entities:
 1. Open SQL Server Management Studio (SSMS)
 2. Connect to `(localdb)\mssqllocaldb`
 3. Run `RaceDayDatabase.sql` from `/docs` folder OR use EF Core migrations:
-   ```powershell
-   cd RaceDayAPI
-   Update-Database
 
-   Run the API
-Open RaceDayAPI.sln in Visual Studio
+cd RaceDayAPI
+Update-Database
 
-Press F5 to run
 
-Swagger UI opens at https://localhost:7xxx/swagger
+### Run the API
+1. Open `RaceDayAPI.sln` in Visual Studio
+2. Press `F5` to run
+3. Swagger UI opens at `https://localhost:7xxx/swagger`
 
-Run Unit Tests
-Open Test Explorer (Test → Test Explorer)
+### Run Unit Tests
+1. Open **Test Explorer** (Test → Test Explorer)
+2. Click **"Run All Tests"**
+3. All tests should pass
 
-Click "Run All Tests"
+## Authentication
 
-All tests should pass
-
-Authentication
-Register a new user
+### Register a new user
+```json
 POST /api/Auth/register
 {
-  "username": "testuser",
-  "email": "test@test.com",
-  "password": "password123",
-  "role": "Organiser",
-  "organisationName": "Test Events",
-  "contactNumber": "0821234567"
+"username": "testuser",
+"email": "test@test.com",
+"password": "password123",
+"role": "Organiser",
+"organisationName": "Test Events",
+"contactNumber": "0821234567"
 }
 
 Login
+
 POST /api/Auth/login
 {
   "username": "testuser",
@@ -206,6 +176,7 @@ POST /api/Auth/login
 }
 
 Response:
+
 {
   "token": "eyJhbGciOiJIUzI1NiIs...",
   "username": "testuser",
@@ -214,39 +185,52 @@ Response:
 }
 
 Using the token in Swagger
-Click the "Authorize" button (lock icon)
+1. Click the "Authorize" button (lock icon)
+2. Enter: Bearer YOUR_TOKEN
+3. Click "Authorize"
+4. All subsequent requests will include the token
 
-Enter: Bearer YOUR_TOKEN
-
-Click "Authorize"
-
-All subsequent requests will include the token
-
-CI/CD
-
+Video Presentation
+Watch the Part 2 presentation on YouTube: https://youtu.be/p9niCCIO51k
 
 
 ---
 
-## 🎯 NAVIGATION TO UPDATE README
+## 📝 AFTER PASTING — DO THIS
 
-### Step 1: Open the file
-1. **Open File Explorer**
-2. Navigate to: `C:\Users\YourName\Documents\GitHub\RaceDay\`
-3. **Right-click** on `README.md`
-4. Select **"Open with"** → **"Notepad"**
+### Step 1: Save the file
+- Press **Ctrl+S** in Notepad
+- Close Notepad
 
-### Step 2: Replace content
-1. Press `Ctrl + A` (select all)
-2. Press `Delete`
-3. **Paste the entire content above**
-4. **Save** (Ctrl+S)
+### Step 2: Commit and push
+1. **Open GitHub Desktop**
+2. Verify branch is **`part2-api`**
+3. Write commit message:
 
-### Step 3: Update video link
-1. Find: `[Watch the Part 2 presentation on YouTube](YOUR_YOUTUBE_LINK_HERE)`
-2. Replace `YOUR_YOUTUBE_LINK_HERE` with your actual YouTube link
-3. **Save**
+Part 2: Updated README with full API documentation, CI/CD screenshots, and YouTube video link
 
-### Step 4: Commit
-1. Open **GitHub Desktop**
-2. Write commit message:
+4. Click **"Commit to main"**
+5. Click **"Push origin"**
+
+### Step 3: Verify on GitHub
+1. Go to: https://github.com/sipho-ctrl/RaceDay
+2. Scroll down to see your README
+3. **Check:**
+- Project structure displays correctly (no weird characters)
+- CI/CD screenshots appear
+- YouTube link works (click it)
+
+---
+
+## ✅ FINAL SUBMISSION CHECKLIST
+
+- [ ] README updated with correct content
+- [ ] YouTube link works (https://youtu.be/p9niCCIO51k)
+- [ ] CI/CD screenshots visible in README
+- [ ] Project structure displays correctly
+- [ ] All commits pushed to `part2-api` branch
+- [ ] GitHub Actions shows green build ✅
+
+---
+
+
