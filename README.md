@@ -171,3 +171,82 @@ The database uses Entity Framework Core Code-First with the following entities:
    ```powershell
    cd RaceDayAPI
    Update-Database
+
+   Run the API
+Open RaceDayAPI.sln in Visual Studio
+
+Press F5 to run
+
+Swagger UI opens at https://localhost:7xxx/swagger
+
+Run Unit Tests
+Open Test Explorer (Test → Test Explorer)
+
+Click "Run All Tests"
+
+All tests should pass
+
+Authentication
+Register a new user
+POST /api/Auth/register
+{
+  "username": "testuser",
+  "email": "test@test.com",
+  "password": "password123",
+  "role": "Organiser",
+  "organisationName": "Test Events",
+  "contactNumber": "0821234567"
+}
+
+Login
+POST /api/Auth/login
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+Response:
+{
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "username": "testuser",
+  "role": "Organiser",
+  "userID": 1
+}
+
+Using the token in Swagger
+Click the "Authorize" button (lock icon)
+
+Enter: Bearer YOUR_TOKEN
+
+Click "Authorize"
+
+All subsequent requests will include the token
+
+CI/CD
+
+
+
+---
+
+## 🎯 NAVIGATION TO UPDATE README
+
+### Step 1: Open the file
+1. **Open File Explorer**
+2. Navigate to: `C:\Users\YourName\Documents\GitHub\RaceDay\`
+3. **Right-click** on `README.md`
+4. Select **"Open with"** → **"Notepad"**
+
+### Step 2: Replace content
+1. Press `Ctrl + A` (select all)
+2. Press `Delete`
+3. **Paste the entire content above**
+4. **Save** (Ctrl+S)
+
+### Step 3: Update video link
+1. Find: `[Watch the Part 2 presentation on YouTube](YOUR_YOUTUBE_LINK_HERE)`
+2. Replace `YOUR_YOUTUBE_LINK_HERE` with your actual YouTube link
+3. **Save**
+
+### Step 4: Commit
+1. Open **GitHub Desktop**
+2. Write commit message:
