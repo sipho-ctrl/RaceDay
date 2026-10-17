@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RaceDayAPI.Data;
+using RaceDayAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -14,6 +15,9 @@ builder.Services.AddSwaggerGen();
 // Database
 builder.Services.AddDbContext<RaceDayDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register custom services
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not found");

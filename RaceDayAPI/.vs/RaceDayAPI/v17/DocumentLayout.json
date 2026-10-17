@@ -3,20 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\migrations\\20261016234917_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\migrations\\20261016234917_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\data\\racedaydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\data\\racedaydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\migrations\\20261016234917_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\migrations\\20261016234917_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|solutionrelative:racedayapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0D9B1EA-C3B0-4A62-BD2D-616495BB4B0E}|RaceDayAPI\\RaceDayAPI.csproj|c:\\users\\student\\documents\\github\\raceday\\racedayapi\\racedayapi\\models\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,11 +82,80 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "RaceDayAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAD8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:09:57.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Services\\AuthService.cs",
+              "RelativeToolTip": "RaceDayAPI\\Services\\AuthService.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAwwH4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:06:05.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Services\\IAuthService.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Services\\IAuthService.cs",
+              "RelativeToolTip": "RaceDayAPI\\Services\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:05:23.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\AuthResponseDto.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\DTOs\\AuthResponseDto.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\AuthResponseDto.cs",
+              "RelativeToolTip": "RaceDayAPI\\DTOs\\AuthResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:04:00.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\RegisterDto.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\DTOs\\RegisterDto.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\RegisterDto.cs",
+              "RelativeToolTip": "RaceDayAPI\\DTOs\\RegisterDto.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAwwCAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:02:15.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "20261016234917_InitialCreate.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Migrations\\20261016234917_InitialCreate.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Migrations\\20261016234917_InitialCreate.cs",
@@ -75,7 +168,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Program.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Program.cs",
+              "RelativeToolTip": "RaceDayAPI\\Program.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAwwEIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-16T23:26:05.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\LoginDto.cs",
+              "RelativeDocumentMoniker": "RaceDayAPI\\DTOs\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\DTOs\\LoginDto.cs",
+              "RelativeToolTip": "RaceDayAPI\\DTOs\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T01:03:16.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\appsettings.json",
               "RelativeDocumentMoniker": "RaceDayAPI\\appsettings.json",
@@ -83,25 +202,24 @@
               "RelativeToolTip": "RaceDayAPI\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-10-16T23:34:33.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:34:33.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "RaceDayDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Data\\RaceDayDbContext.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Data\\RaceDayDbContext.cs",
               "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Data\\RaceDayDbContext.cs",
               "RelativeToolTip": "RaceDayAPI\\Data\\RaceDayDbContext.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAuwEoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAYwEoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-16T23:33:31.839Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Result.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Result.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Result.cs",
@@ -109,12 +227,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Result.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAuwB8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:32:22.777Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:32:22.777Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "Enrolment.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Enrolment.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Enrolment.cs",
@@ -122,12 +239,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Enrolment.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAUwCAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:31:32.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:31:32.127Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Category.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Category.cs",
@@ -135,12 +251,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Category.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAuwCMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:30:41.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:30:41.757Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "Event.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Event.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Event.cs",
@@ -148,12 +263,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Event.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAA8wDAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:29:51.911Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:29:51.911Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Participant.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Participant.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Participant.cs",
@@ -161,25 +275,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Participant.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAcwB0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:27:46.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:27:46.029Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Program.cs",
-              "RelativeDocumentMoniker": "RaceDayAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Program.cs",
-              "RelativeToolTip": "RaceDayAPI\\Program.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAuwD4AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:26:05.428Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "Organiser.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\Organiser.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\Organiser.cs",
@@ -187,12 +287,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\Organiser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:26:40.946Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:26:40.946Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\Models\\User.cs",
               "RelativeDocumentMoniker": "RaceDayAPI\\Models\\User.cs",
@@ -200,12 +299,11 @@
               "RelativeToolTip": "RaceDayAPI\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T23:22:05.068Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T23:22:05.068Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "RaceDayAPI.csproj",
               "DocumentMoniker": "C:\\Users\\Student\\Documents\\GitHub\\RaceDay\\RaceDayAPI\\RaceDayAPI\\RaceDayAPI.csproj",
               "RelativeDocumentMoniker": "RaceDayAPI\\RaceDayAPI.csproj",
@@ -213,12 +311,7 @@
               "RelativeToolTip": "RaceDayAPI\\RaceDayAPI.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-16T19:22:41.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2026-10-16T19:22:41.755Z"
             }
           ]
         }
