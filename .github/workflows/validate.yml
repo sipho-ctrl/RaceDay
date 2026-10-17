@@ -1,63 +1,32 @@
-name: Validate Repository Structure
+name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, part2-api ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  validate:
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
-    - name: Check docs folder exists
-      run: |
-        if [ -d "docs" ]; then
-          echo "✅ docs folder exists"
-        else
-          echo "❌ docs folder missing"
-          exit 1
-        fi
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
     
-    - name: Check ERD.pdf exists
-      run: |
-        if [ -f "docs/ERD.pdf" ]; then
-          echo "✅ ERD.pdf exists"
-        else
-          echo "❌ ERD.pdf missing"
-          exit 1
-        fi
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./RaceDayAPI
     
-    - name: Check APIEndpointPlan exists (Word or PDF)
-      run: |
-        if [ -f "docs/APIEndpointPlan.docx" ] || [ -f "docs/APIEndpointPlan.pdf" ]; then
-          echo "✅ APIEndpointPlan exists"
-        else
-          echo "❌ APIEndpointPlan not found - please add APIEndpointPlan.docx or APIEndpointPlan.pdf"
-          exit 1
-        fi
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      working-directory: ./RaceDayAPI
     
-    - name: Check RaceDayDatabase.sql exists
-      run: |
-        if [ -f "docs/RaceDayDatabase.sql" ]; then
-          echo "✅ RaceDayDatabase.sql exists"
-        else
-          echo "❌ RaceDayDatabase.sql missing"
-          exit 1
-        fi
-    
-    - name: Check README.md exists
-      run: |
-        if [ -f "README.md" ]; then
-          echo "✅ README.md exists"
-        else
-          echo "❌ README.md missing"
-          exit 1
-        fi
-    
-    - name: Final validation
-      run: echo "✅ All required files present - Repository structure is valid!"
+    - name: Test
+      run: dotnet test --no-build --configuration Release --verbosity normal
+      working-directory: ./RaceDayAPI
