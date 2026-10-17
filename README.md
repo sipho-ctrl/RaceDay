@@ -127,6 +127,58 @@ The database uses Entity Framework Core Code-First with the following entities:
 6. **Enrolments** - Participant registrations (EnrolmentID, ParticipantID, CategoryID, RegistrationDate, PaymentStatus, StartNumber)
 7. **Results** - Race results (ResultID, EnrolmentID, FinishTime, OverallPosition, CategoryPosition, Pace, Status)
 
+
+Using the token in Swagger
+1. Click the "Authorize" button (lock icon)
+2. Enter: Bearer YOUR_TOKEN
+3. Click "Authorize"
+4. All subsequent requests will include the token
+
+### Video Presentation
+Watch the Part 2 presentation on YouTube: https://youtu.be/p9niCCIO51k
+
+
+---
+
+## 📝 AFTER PASTING — DO THIS
+
+### Step 1: Save the file
+- Press **Ctrl+S** in Notepad
+- Close Notepad
+
+### Step 2: Commit and push
+1. **Open GitHub Desktop**
+2. Verify branch is **`part2-api`**
+3. Write commit message:
+
+Part 2: Updated README with full API documentation, CI/CD screenshots, and YouTube video link
+
+4. Click **"Commit to main"**
+5. Click **"Push origin"**
+
+### Step 3: Verify on GitHub
+1. Go to: https://github.com/sipho-ctrl/RaceDay
+2. Scroll down to see your README
+3. **Check:**
+- Project structure displays correctly (no weird characters)
+- CI/CD screenshots appear
+- YouTube link works (click it)
+
+---
+
+## ✅ FINAL SUBMISSION CHECKLIST
+
+- [ ] README updated with correct content
+- [ ] YouTube link works (https://youtu.be/p9niCCIO51k)
+- [ ] CI/CD screenshots visible in README
+- [ ] Project structure displays correctly
+- [ ] All commits pushed to `part2-api` branch
+- [ ] GitHub Actions shows green build ✅
+
+---
+
+
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -184,53 +236,5 @@ Response:
   "userID": 1
 }
 
-Using the token in Swagger
-1. Click the "Authorize" button (lock icon)
-2. Enter: Bearer YOUR_TOKEN
-3. Click "Authorize"
-4. All subsequent requests will include the token
-
-Video Presentation
-Watch the Part 2 presentation on YouTube: https://youtu.be/p9niCCIO51k
-
-
----
-
-## 📝 AFTER PASTING — DO THIS
-
-### Step 1: Save the file
-- Press **Ctrl+S** in Notepad
-- Close Notepad
-
-### Step 2: Commit and push
-1. **Open GitHub Desktop**
-2. Verify branch is **`part2-api`**
-3. Write commit message:
-
-Part 2: Updated README with full API documentation, CI/CD screenshots, and YouTube video link
-
-4. Click **"Commit to main"**
-5. Click **"Push origin"**
-
-### Step 3: Verify on GitHub
-1. Go to: https://github.com/sipho-ctrl/RaceDay
-2. Scroll down to see your README
-3. **Check:**
-- Project structure displays correctly (no weird characters)
-- CI/CD screenshots appear
-- YouTube link works (click it)
-
----
-
-## ✅ FINAL SUBMISSION CHECKLIST
-
-- [ ] README updated with correct content
-- [ ] YouTube link works (https://youtu.be/p9niCCIO51k)
-- [ ] CI/CD screenshots visible in README
-- [ ] Project structure displays correctly
-- [ ] All commits pushed to `part2-api` branch
-- [ ] GitHub Actions shows green build ✅
-
----
 
 
