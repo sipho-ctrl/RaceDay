@@ -3,10 +3,10 @@
 ## Student Information
 - **Name**: Sipho Swartbooi
 - **Student Number**: ST10467895
-- **Assignment**: Part 1 - System Planning and Database
+- **Assignment**: Part 2 - RESTful API Development
 
 ## System Overview
-RaceDay is a full-stack web-based event management system designed specifically for the South African road running, walking, and cycling community. The platform allows Event Organisers to create and manage events, categories, and participant results, while Participants can browse upcoming events, enter events, track their personal performance history, and prepare for race day.
+RaceDay is a full-stack web-based event management system designed for the South African road running, walking, and cycling community. The platform allows Event Organisers to create and manage events, categories, and participant results, while Participants can browse upcoming events, enter events, track their personal performance history, and prepare for race day.
 
 ## User Roles
 
@@ -14,8 +14,7 @@ RaceDay is a full-stack web-based event management system designed specifically 
 - Create, edit, and delete events
 - Manage event categories
 - Capture participant results
-- View all event enrolments
-- Monitor participant registrations
+- View all event enrolments for their events
 
 ### Participant
 - Create an account and manage profile
@@ -25,11 +24,13 @@ RaceDay is a full-stack web-based event management system designed specifically 
 - Track personal results and performance history
 
 ## Technology Stack
-- **Database**: SQL Server (SSMS)
-- **Backend**: ASP.NET Core Web API (Part 2)
-- **Frontend**: MVC (Part 3)
-- **Version Control**: GitHub
+- **Backend**: ASP.NET Core Web API (.NET 8.0)
+- **Database**: SQL Server with Entity Framework Core (Code-First)
+- **Authentication**: JWT with BCrypt password hashing
+- **API Documentation**: Swagger UI
+- **Testing**: xUnit with InMemory database
 - **CI/CD**: GitHub Actions
+- **Version Control**: GitHub
 
 ## Project Structure
 RaceDay/
@@ -38,32 +39,135 @@ RaceDay/
 │ ├── APIEndpointPlan.docx
 │ ├── RaceDayDatabase.sql
 │ ├── green-build.png
+│ ├── part2-green-build.png
 │ ├── RD DB OUTPUT I.png
 │ └── RD DB OUPUT II.png
-├── .github/
-│ └── workflows/
+├── RaceDayAPI/ ← Part 2 API
+│ ├── Controllers/
+│ │ ├── AuthController.cs
+│ │ ├── EventsController.cs
+│ │ ├── CategoriesController.cs
+│ │ ├── EnrolmentsController.cs
+│ │ ├── ResultsController.cs
+│ │ └── UsersController.cs
+│ ├── Models/
+│ │ ├── User.cs
+│ │ ├── Organiser.cs
+│ │ ├── Participant.cs
+│ │ ├── Event.cs
+│ │ ├── Category.cs
+│ │ ├── Enrolment.cs
+│ │ └── Result.cs
+│ ├── DTOs/
+│ │ ├── RegisterDto.cs
+│ │ ├── LoginDto.cs
+│ │ ├── AuthResponseDto.cs
+│ │ ├── CreateEventDto.cs
+│ │ ├── UpdateEventDto.cs
+│ │ ├── EventResponseDto.cs
+│ │ ├── CreateCategoryDto.cs
+│ │ ├── UpdateCategoryDto.cs
+│ │ ├── CategoryResponseDto.cs
+│ │ ├── CreateEnrolmentDto.cs
+│ │ ├── EnrolmentResponseDto.cs
+│ │ ├── CreateResultDto.cs
+│ │ ├── UpdateResultDto.cs
+│ │ ├── ResultResponseDto.cs
+│ │ ├── UserProfileDto.cs
+│ │ └── UpdateProfileDto.cs
+│ ├── Data/
+│ │ └── RaceDayDbContext.cs
+│ ├── Services/
+│ │ ├── IAuthService.cs
+│ │ └── AuthService.cs
+│ ├── Helpers/
+│ ├── Program.cs
+│ └── appsettings.json
+├── RaceDayAPI.Tests/ ← Unit tests
+│ ├── TestHelper.cs
+│ ├── AuthServiceTests.cs
+│ ├── EventsControllerTests.cs
+│ ├── RoleBasedAccessTests.cs
+│ └── EnrolmentTests.cs
+├── .github/workflows/
 │ └── validate.yml
 └── README.md
 
-## Database Setup Instructions
+
+## API Endpoints Implemented
+
+### Authentication
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| POST | `/api/Auth/register` | Register new user (Organiser or Participant) | None |
+| POST | `/api/Auth/login` | Login and get JWT token | None |
+
+### Events
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| GET | `/api/Events` | Get all events | Any authenticated |
+| GET | `/api/Events/{id}` | Get event by ID | Any authenticated |
+| GET | `/api/Events/organiser` | Get organiser's own events | Organiser |
+| POST | `/api/Events` | Create new event | Organiser |
+| PUT | `/api/Events/{id}` | Update event | Organiser (owner) |
+| DELETE | `/api/Events/{id}` | Delete event | Organiser (owner) |
+
+### Categories
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| GET | `/api/Categories/event/{eventId}` | Get categories for an event | Any authenticated |
+| GET | `/api/Categories/{id}` | Get category by ID | Any authenticated |
+| POST | `/api/Categories` | Create new category | Organiser (event owner) |
+| PUT | `/api/Categories/{id}` | Update category | Organiser (event owner) |
+| DELETE | `/api/Categories/{id}` | Delete category | Organiser (event owner) |
+
+### Enrolments
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| GET | `/api/Enrolments` | Get my enrolments | Participant |
+| GET | `/api/Enrolments/event/{eventId}` | Get all enrolments for an event | Organiser (event owner) |
+| GET | `/api/Enrolments/{id}` | Get enrolment by ID | Participant (own) or Organiser (event owner) |
+| POST | `/api/Enrolments` | Enrol in an event category | Participant |
+| DELETE | `/api/Enrolments/{id}` | Cancel enrolment | Participant (own) |
+
+### Results
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| GET | `/api/Results` | Get my personal results | Participant |
+| GET | `/api/Results/event/{eventId}` | Get all results for an event | Any authenticated |
+| GET | `/api/Results/{id}` | Get result by ID | Participant (own) or Organiser (event owner) |
+| POST | `/api/Results` | Capture participant result | Organiser (event owner) |
+| PUT | `/api/Results/{id}` | Update result | Organiser (event owner) |
+
+### Users
+| Method | Route | Description | Role Required |
+|--------|-------|-------------|---------------|
+| GET | `/api/Users/profile` | Get current user's profile | Any authenticated |
+| PUT | `/api/Users/profile` | Update current user's profile | Any authenticated |
+
+## Database Schema
+
+The database uses Entity Framework Core Code-First with the following entities:
+
+1. **Users** - Base authentication table (UserID, Username, Email, PasswordHash, Role)
+2. **Organisers** - Organiser profiles (OrganiserID, UserID, OrganisationName, ContactNumber)
+3. **Participants** - Participant profiles (ParticipantID, UserID, FullName, DateOfBirth, Gender, ContactNumber, EmergencyContact)
+4. **Events** - Events (EventID, OrganiserID, EventName, EventDate, Location, Description, MaxParticipants, RegistrationDeadline, EventStatus, Distance, EventType)
+5. **Categories** - Event categories (CategoryID, EventID, CategoryName, Distance, AgeGroup, GenderGroup, EntryFee, MaxParticipants)
+6. **Enrolments** - Participant registrations (EnrolmentID, ParticipantID, CategoryID, RegistrationDate, PaymentStatus, StartNumber)
+7. **Results** - Race results (ResultID, EnrolmentID, FinishTime, OverallPosition, CategoryPosition, Pace, Status)
+
+## Setup Instructions
+
+### Prerequisites
+- Visual Studio 2022
+- .NET 8.0 SDK
+- SQL Server (LocalDB or Express)
+
+### Database Setup
 1. Open SQL Server Management Studio (SSMS)
-2. Connect to your SQL Server instance
-3. Open the `RaceDayDatabase.sql` script from the `/docs` folder
-4. Execute the script (press F5)
-5. Verify all tables are created successfully
-6. Check sample data is inserted (run the verification queries at the end)
-
-### Database Output Verification
-The following screenshots show the successful execution of the database script:
-
-**Database Output 1:**
-![Database Output 1](docs/RD%20DB%20OUTPUT%20I.png)
-
-**Database Output 2:**
-![Database Output 2](docs/RD%20DB%20OUPUT%20II.png)
-
-## CI/CD Status
-![CI/CD Build Status](docs/green-build.png)
-
-## Video Presentation
-[Watch the presentation on YouTube](https://youtu.be/Y_KmNz_rUKI?si=70K-AUj2Sfy3JhYw)
+2. Connect to `(localdb)\mssqllocaldb`
+3. Run `RaceDayDatabase.sql` from `/docs` folder OR use EF Core migrations:
+   ```powershell
+   cd RaceDayAPI
+   Update-Database
