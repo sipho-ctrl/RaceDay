@@ -1,0 +1,131 @@
+﻿@model RaceDayMVC.ViewModels.EditEventViewModel
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1"><i class="bi bi-pencil-square"></i> Edit Event</h1>
+        <p class="text-muted mb-0">Update the details below</p>
+    </div>
+    <div>
+        <a asp-controller="Organiser" asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <form asp-controller="Organiser" asp-action="EditEvent" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="EventID" />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label asp-for="EventName" class="form-label"></label>
+                    <input asp-for="EventName" class="form-control" />
+                    <span asp-validation-for="EventName" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="EventType" class="form-label"></label>
+                    <select asp-for="EventType" class="form-select">
+                        <option value="run">Run</option>
+                        <option value="walk">Walk</option>
+                        <option value="cycle">Cycle</option>
+                    </select>
+                    <span asp-validation-for="EventType" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EventDate" class="form-label"></label>
+                    <input asp-for="EventDate" type="date" class="form-control" />
+                    <span asp-validation-for="EventDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="RegistrationDeadline" class="form-label"></label>
+                    <input asp-for="RegistrationDeadline" type="date" class="form-control" />
+                    <span asp-validation-for="RegistrationDeadline" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-8">
+                    <label asp-for="Location" class="form-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Distance" class="form-label"></label>
+                    <input asp-for="Distance" class="form-control" />
+                    <span asp-validation-for="Distance" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="MaxParticipants" class="form-label"></label>
+                    <input asp-for="MaxParticipants" type="number" class="form-control" />
+                    <span asp-validation-for="MaxParticipants" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="EventStatus" class="form-label"></label>
+                    <select asp-for="EventStatus" class="form-select">
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <span asp-validation-for="EventStatus" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="BannerImage" class="form-label"></label>
+                    <input asp-for="BannerImage" type="file" accept="image/*" class="form-control" />
+                    <small class="text-muted">Optional — coming in Step 11</small>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <div>
+                    <button type="submit" class="btn btn-raceday">
+                        <i class="bi bi-check-circle"></i> Save Changes
+                    </button>
+                    <a asp-controller="Organiser" asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="bi bi-trash"></i> Delete Event
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Event?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong>@Model.EventName</strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone. All enrolments and results will also be affected.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-controller="Organiser" asp-action="DeleteEvent" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@Model.EventID" />
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
