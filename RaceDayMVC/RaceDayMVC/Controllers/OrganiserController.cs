@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RaceDayMVC.DTOs;
 using RaceDayMVC.Helpers;
 using RaceDayMVC.Services;
 using RaceDayMVC.ViewModels;
@@ -53,6 +54,83 @@ namespace RaceDayMVC.Controllers
             vm.TotalEnrolments = totalEnrolments;
 
             return View(vm);
+        }
+
+        // ============= CREATE EVENT =============
+        [HttpGet]
+        public IActionResult CreateEvent()
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            return View(new CreateEventViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateEvent(CreateEventViewModel model)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // Build payload for API
+            var payload = new
+            {
+                eventName = model.EventName,
+                eventDate = model.EventDate,
+                location = model.Location,
+                description = model.Description,
+                maxParticipants = model.MaxParticipants,
+                registrationDeadline = model.RegistrationDeadline,
+                distance = model.Distance,
+                eventType = model.EventType
+            };
+
+            var created = await _api.CreateEventAsync(Token!, payload);
+
+            if (created == null)
+            {
+                ModelState.AddModelError("", "Failed to create event. Please check your inputs.");
+                return View(model);
+            }
+
+            // TODO: Upload banner image (Azure Blob) — Step 11
+            // if (model.BannerImage != null) { ... }
+
+            TempData["Success"] = $"Event '{created.EventName}' created successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ============= PLACEHOLDERS =============
+        public IActionResult EditEvent(int id)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+            return Content($"Edit Event {id} — coming in Step 6");
+        }
+
+        public IActionResult DeleteEvent(int id)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+            return Content($"Delete Event {id} — coming in Step 7");
+        }
+
+        public IActionResult Enrolments(int eventId)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+            return Content($"Enrolments for Event {eventId} — coming in Step 8");
+        }
+
+        public IActionResult Results(int eventId)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+            return Content($"Results for Event {eventId} — coming in Step 9");
         }
 
         public IActionResult Logout()
