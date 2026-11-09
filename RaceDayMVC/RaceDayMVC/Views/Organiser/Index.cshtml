@@ -124,6 +124,9 @@
                                 <span class="status-badge @statusClass">@ev.EventStatus</span>
                             </td>
                             <td class="text-end">
+                                <a asp-controller="Organiser" asp-action="Categories" asp-route-eventId="@ev.EventID" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-tags"></i> Categories
+                                </a>
                                 <a asp-controller="Organiser" asp-action="Enrolments" asp-route-eventId="@ev.EventID" class="btn btn-sm btn-outline-secondary">
                                     <i class="bi bi-people"></i> Enrolments
                                 </a>

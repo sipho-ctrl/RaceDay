@@ -184,6 +184,88 @@ namespace RaceDayMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // ============= CATEGORIES =============
+        [HttpGet]
+        public async Task<IActionResult> Categories(int eventId)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            var ev = await _api.GetEventByIdAsync(Token!, eventId);
+            if (ev == null)
+            {
+                TempData["Error"] = "Event not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var categories = await _api.GetCategoriesByEventAsync(Token!, eventId);
+
+            var vm = new CategoriesViewModel
+            {
+                EventID = ev.EventID,
+                EventName = ev.EventName,
+                EventDate = ev.EventDate,
+                Location = ev.Location,
+                Categories = categories,
+                NewCategory = new CreateCategoryViewModel { EventID = ev.EventID }
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCategory(CreateCategoryViewModel model)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Please check the category details.";
+                return RedirectToAction(nameof(Categories), new { eventId = model.EventID });
+            }
+
+            var payload = new
+            {
+                eventID = model.EventID,
+                categoryName = model.CategoryName,
+                distance = model.Distance,
+                ageGroup = model.AgeGroup,
+                genderGroup = model.GenderGroup,
+                entryFee = model.EntryFee,
+                maxParticipants = model.MaxParticipants
+            };
+
+            var created = await _api.CreateCategoryAsync(Token!, payload);
+
+            if (created == null)
+            {
+                TempData["Error"] = "Failed to create category.";
+                return RedirectToAction(nameof(Categories), new { eventId = model.EventID });
+            }
+
+            TempData["Success"] = $"Category '{created.CategoryName}' added!";
+            return RedirectToAction(nameof(Categories), new { eventId = model.EventID });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCategory(int id, int eventId)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            var success = await _api.DeleteCategoryAsync(Token!, id);
+
+            if (success)
+                TempData["Success"] = "Category deleted.";
+            else
+                TempData["Error"] = "Cannot delete category — it may have existing enrolments.";
+
+            return RedirectToAction(nameof(Categories), new { eventId });
+        }
+
         // ============= PLACEHOLDERS =============
         public IActionResult Enrolments(int eventId)
         {
