@@ -3,47 +3,143 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RaceDayMVC</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RaceDayMVC.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - RaceDay</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <style>
+        :root {
+            --raceday-primary: #FF5722;
+            --raceday-dark: #1A1A2E;
+            --raceday-accent: #00C9A7;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-raceday {
+            background-color: var(--raceday-dark) !important;
+        }
+
+            .navbar-raceday .navbar-brand {
+                color: var(--raceday-primary) !important;
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .navbar-raceday .nav-link {
+                color: #ffffff !important;
+            }
+
+                .navbar-raceday .nav-link:hover {
+                    color: var(--raceday-primary) !important;
+                }
+
+        .btn-raceday {
+            background-color: var(--raceday-primary);
+            color: white;
+            border: none;
+        }
+
+            .btn-raceday:hover {
+                background-color: #E64A19;
+                color: white;
+            }
+
+        .status-badge {
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-open {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-closed {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RaceDayMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <nav class="navbar navbar-expand-lg navbar-raceday">
         <div class="container">
-            &copy; 2026 - RaceDayMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-trophy-fill"></i> RaceDay
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    @{
+                        var role = Context.Session.GetString("UserRole");
+                        var username = Context.Session.GetString("Username");
+                    }
+                    @if (!string.IsNullOrEmpty(role))
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link">Hello, @username</span>
+                        </li>
+                        @if (role == "Organiser")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Organiser" asp-action="Index">Dashboard</a>
+                            </li>
+                        }
+                        else if (role == "Participant")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Participant" asp-action="Index">Home</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-light mt-2 ms-2">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Register">Register</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
+    </nav>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="text-center text-muted py-3 mt-5 border-top">
+        <small>&copy; 2026 RaceDay - Event Management System</small>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

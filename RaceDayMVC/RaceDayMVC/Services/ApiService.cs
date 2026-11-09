@@ -17,8 +17,19 @@ namespace RaceDayMVC.Services
             _config = config;
             _httpContext = httpContext;
 
-            var baseUrl = _config["ApiSettings:BaseUrl"] ?? "https://localhost:7xxx";
-            _http.BaseAddress = new Uri(baseUrl);
+            var baseUrl = _config["ApiSettings:BaseUrl"];
+
+            if (string.IsNullOrWhiteSpace(baseUrl))
+                throw new InvalidOperationException(
+                    "ApiSettings:BaseUrl is missing from appsettings.json. " +
+                    "Please set it to your API's URL (e.g., https://localhost:7162).");
+
+            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var uri))
+                throw new InvalidOperationException(
+                    $"ApiSettings:BaseUrl '{baseUrl}' is not a valid absolute URL. " +
+                    "It should look like https://localhost:7162 (no trailing slash).");
+
+            _http.BaseAddress = uri;
         }
 
         private HttpRequestMessage CreateRequest(HttpMethod method, string route, string? token = null, object? body = null)
