@@ -1,0 +1,129 @@
+﻿@model RaceDayMVC.ViewModels.EventEnrolmentsViewModel
+@{
+    ViewData["Title"] = "Enrolments";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1"><i class="bi bi-people-fill"></i> Enrolments</h1>
+        <p class="text-muted mb-0">
+            <strong>@Model.EventName</strong> — @Model.EventDate.ToString("dd MMM yyyy") · @Model.Location
+        </p>
+    </div>
+    <div>
+        <a asp-controller="Organiser" asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+        <a asp-controller="Organiser" asp-action="Results" asp-route-eventId="@Model.EventID" class="btn btn-raceday">
+            <i class="bi bi-trophy"></i> Capture Results
+        </a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Total Enrolments</p>
+                <h3 class="mb-0">@Model.TotalEnrolments</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Paid</p>
+                <h3 class="mb-0 text-success">@Model.PaidCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Pending</p>
+                <h3 class="mb-0 text-warning">@Model.PendingCount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h6 class="mb-0"><i class="bi bi-list-ul"></i> Participants (@Model.Enrolments.Count)</h6>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.Enrolments.Count == 0)
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-person-x text-muted" style="font-size:3rem;"></i>
+                <p class="mt-3 text-muted">No participants have enrolled yet.</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Participant</th>
+                        <th>Category</th>
+                        <th>Start #</th>
+                        <th>Enrolled</th>
+                        <th>Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+                    @foreach (var e in Model.Enrolments.OrderBy(x => x.ParticipantName))
+                    {
+                        var payClass = e.PaymentStatus == "Paid" ? "status-confirmed" : "status-pending";
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                <strong>@e.ParticipantName</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border">@e.CategoryName</span>
+                                <br /><small class="text-muted">@e.CategoryDistance km</small>
+                            </td>
+                            <td>
+                                @if (e.StartNumber.HasValue)
+                                {
+                                    <span class="badge bg-primary">@e.StartNumber</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+                            <td>
+                                <small>@e.RegistrationDate.ToString("dd MMM yyyy")</small>
+                            </td>
+                            <td>
+                                <span class="status-badge @payClass">@e.PaymentStatus</span>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

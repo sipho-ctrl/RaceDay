@@ -266,14 +266,36 @@ namespace RaceDayMVC.Controllers
             return RedirectToAction(nameof(Categories), new { eventId });
         }
 
-        // ============= PLACEHOLDERS =============
-        public IActionResult Enrolments(int eventId)
+        // ============= ENROLMENTS (STEP 8) =============
+        [HttpGet]
+        public async Task<IActionResult> Enrolments(int eventId)
         {
             if (string.IsNullOrEmpty(Token) || Role != "Organiser")
                 return RedirectToAction("Login", "Auth");
-            return Content($"Enrolments for Event {eventId} — coming in Step 8");
+
+            var ev = await _api.GetEventByIdAsync(Token!, eventId);
+            if (ev == null)
+            {
+                TempData["Error"] = "Event not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var enrolments = await _api.GetEnrolmentsByEventAsync(Token!, eventId);
+
+            var vm = new EventEnrolmentsViewModel
+            {
+                EventID = ev.EventID,
+                EventName = ev.EventName,
+                EventDate = ev.EventDate,
+                Location = ev.Location,
+                EventStatus = ev.EventStatus,
+                Enrolments = enrolments
+            };
+
+            return View(vm);
         }
 
+        // ============= PLACEHOLDERS =============
         public IActionResult Results(int eventId)
         {
             if (string.IsNullOrEmpty(Token) || Role != "Organiser")
