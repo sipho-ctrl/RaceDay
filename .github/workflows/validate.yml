@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main, part2-api ]
+    branches: [ main, part2-api, part3-mvc ]
   pull_request:
     branches: [ main ]
 
@@ -20,13 +20,24 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore
-      working-directory: ./RaceDayAPI
+      run: dotnet restore RaceDayAPI.sln
     
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-      working-directory: ./RaceDayAPI
+    - name: Build API and MVC
+      run: dotnet build RaceDayAPI.sln --no-restore --configuration Release
     
-    - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal
-      working-directory: ./RaceDayAPI
+    - name: Run unit tests
+      run: dotnet test RaceDayAPI.sln --no-build --configuration Release --verbosity normal
+    
+    - name: Verify Dockerfile exists
+      run: |
+        if [ ! -f "Dockerfile" ]; then
+          echo "❌ Dockerfile missing"
+          exit 1
+        fi
+        echo "✅ Dockerfile present"
+    
+    - name: Build Docker image
+      run: docker build -t racedaymvc:ci .
+    
+    - name: Final validation
+      run: echo "✅ Build, tests, and Docker all passed"
