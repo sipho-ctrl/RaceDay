@@ -1,0 +1,138 @@
+﻿@model RaceDayMVC.ViewModels.EventDetailViewModel
+@{
+    ViewData["Title"] = Model.Event.EventName;
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="mb-3">
+    <a asp-controller="Participant" asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Back to Events
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h1 class="h2 mb-2">@Model.Event.EventName</h1>
+                <p class="text-muted mb-3">
+                    <i class="bi bi-geo-alt"></i> @Model.Event.Location
+                    · <i class="bi bi-calendar-event"></i> @Model.Event.EventDate.ToString("dd MMM yyyy")
+                    @if (!string.IsNullOrEmpty(Model.Event.Distance))
+                    {
+                        <span> · <i class="bi bi-rulers"></i> @Model.Event.Distance</span>
+                    }
+                </p>
+            </div>
+            <div class="text-end">
+                <span class="badge bg-primary fs-6">
+                    <i class="bi bi-tag"></i> @Model.Event.EventType?.ToUpper()
+                </span>
+                <br />
+                <span class="status-badge status-open mt-2 d-inline-block">@Model.Event.EventStatus</span>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Event.Description))
+        {
+            <p class="mb-3">@Model.Event.Description</p>
+        }
+
+        @if (Model.Event.RegistrationDeadline.HasValue)
+        {
+            <p class="text-danger small mb-0">
+                <i class="bi bi-clock"></i> Registration closes: <strong>@Model.Event.RegistrationDeadline.Value.ToString("dd MMM yyyy")</strong>
+            </p>
+        }
+    </div>
+</div>
+
+<h3 class="h5 mb-3"><i class="bi bi-tags"></i> Categories & Entry</h3>
+
+@if (Model.Categories.Count == 0)
+{
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle"></i> This event has no categories yet. Please check back later.
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var cat in Model.Categories)
+        {
+            var alreadyEnrolled = Model.IsEnrolledInCategory(cat.CategoryID);
+            var isFull = cat.MaxParticipants.HasValue && cat.CurrentEnrolments >= cat.MaxParticipants.Value;
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="mb-1">@cat.CategoryName</h5>
+                                <p class="text-muted small mb-2">
+                                    <i class="bi bi-rulers"></i> @cat.Distance km
+                                    @if (!string.IsNullOrEmpty(cat.AgeGroup))
+                                    {
+                                        <span> · @cat.AgeGroup</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(cat.GenderGroup) && cat.GenderGroup != "All")
+                                    {
+                                        <span> · @cat.GenderGroup</span>
+                                    }
+                                </p>
+                                <p class="small text-muted mb-0">
+                                    <i class="bi bi-people"></i> @cat.CurrentEnrolments / @(cat.MaxParticipants?.ToString() ?? "∞") enrolled
+                                </p>
+                            </div>
+                            @if (cat.EntryFee.HasValue)
+                            {
+                                <div class="text-end">
+                                    <h4 class="text-success mb-0">R @cat.EntryFee.Value.ToString("F0")</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top">
+                        @if (alreadyEnrolled)
+                        {
+                            <button class="btn btn-success w-100" disabled>
+                                <i class="bi bi-check-circle-fill"></i> Already Enrolled
+                            </button>
+                        }
+                        else if (isFull)
+                        {
+                            <button class="btn btn-secondary w-100" disabled>
+                                <i class="bi bi-x-circle"></i> Category Full
+                            </button>
+                        }
+                        else
+                        {
+                            <form asp-controller="Participant" asp-action="Enrol" method="post">
+                                <input type="hidden" name="eventId" value="@Model.Event.EventID" />
+                                <input type="hidden" name="categoryId" value="@cat.CategoryID" />
+                                <button type="submit" class="btn btn-raceday w-100"
+                                        onclick="return confirm('Enrol in @cat.CategoryName?');">
+                                    <i class="bi bi-plus-circle"></i> Enrol Now
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

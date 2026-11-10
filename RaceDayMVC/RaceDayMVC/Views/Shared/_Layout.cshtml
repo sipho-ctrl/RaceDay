@@ -108,7 +108,16 @@
                         else if (role == "Participant")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Participant" asp-action="Index">Home</a>
+                                <a class="nav-link" asp-controller="Participant" asp-action="Index">Browse Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Participant" asp-action="MyEvents">My Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Participant" asp-action="MyResults">My Results</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Participant" asp-action="Profile">Profile</a>
                             </li>
                         }
                         <li class="nav-item">
