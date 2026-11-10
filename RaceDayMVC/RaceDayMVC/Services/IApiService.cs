@@ -36,6 +36,7 @@ namespace RaceDayMVC.Services
         Task<List<ResultResponseDto>> GetMyResultsAsync(string token);
         Task<List<ResultResponseDto>> GetResultsByEventAsync(string token, int eventId);
         Task<ResultResponseDto?> CreateResultAsync(string token, object dto);
+        Task<bool> UpdateResultAsync(string token, int id, object dto);
 
         // File upload
         Task<string?> UploadEventBannerAsync(string token, IFormFile file);

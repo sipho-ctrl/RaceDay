@@ -216,6 +216,13 @@ namespace RaceDayMVC.Services
             return await DeserializeAsync<ResultResponseDto>(response);
         }
 
+        public async Task<bool> UpdateResultAsync(string token, int id, object dto)
+        {
+            var request = CreateRequest(HttpMethod.Put, $"/api/Results/{id}", token, dto);
+            var response = await _http.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
+
         // FILE UPLOAD
         public async Task<string?> UploadEventBannerAsync(string token, IFormFile file)
         {

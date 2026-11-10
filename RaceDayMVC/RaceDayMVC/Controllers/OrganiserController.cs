@@ -266,7 +266,7 @@ namespace RaceDayMVC.Controllers
             return RedirectToAction(nameof(Categories), new { eventId });
         }
 
-        // ============= ENROLMENTS (STEP 8) =============
+        // ============= ENROLMENTS =============
         [HttpGet]
         public async Task<IActionResult> Enrolments(int eventId)
         {
@@ -295,12 +295,106 @@ namespace RaceDayMVC.Controllers
             return View(vm);
         }
 
-        // ============= PLACEHOLDERS =============
-        public IActionResult Results(int eventId)
+        // ============= RESULTS =============
+        [HttpGet]
+        public async Task<IActionResult> Results(int eventId)
         {
             if (string.IsNullOrEmpty(Token) || Role != "Organiser")
                 return RedirectToAction("Login", "Auth");
-            return Content($"Results for Event {eventId} — coming in Step 9");
+
+            var ev = await _api.GetEventByIdAsync(Token!, eventId);
+            if (ev == null)
+            {
+                TempData["Error"] = "Event not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var enrolments = await _api.GetEnrolmentsByEventAsync(Token!, eventId);
+            var results = await _api.GetResultsByEventAsync(Token!, eventId);
+
+            var vm = new EventResultsViewModel
+            {
+                EventID = ev.EventID,
+                EventName = ev.EventName,
+                EventDate = ev.EventDate,
+                Location = ev.Location,
+                Enrolments = enrolments,
+                ExistingResults = results
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateResult(
+            int eventId, int enrolmentId, string finishTime, int? overallPosition, int? categoryPosition, decimal? pace, string status)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            // Parse finish time (expecting HH:mm:ss)
+            if (!TimeSpan.TryParse(finishTime, out var timeSpan))
+            {
+                TempData["Error"] = "Invalid finish time format. Use HH:mm:ss.";
+                return RedirectToAction(nameof(Results), new { eventId });
+            }
+
+            var payload = new
+            {
+                enrolmentID = enrolmentId,
+                finishTime = timeSpan,
+                overallPosition,
+                categoryPosition,
+                pace,
+                status = string.IsNullOrEmpty(status) ? "Pending" : status
+            };
+
+            var created = await _api.CreateResultAsync(Token!, payload);
+
+            if (created == null)
+            {
+                TempData["Error"] = "Failed to save result. The participant may already have a result.";
+                return RedirectToAction(nameof(Results), new { eventId });
+            }
+
+            TempData["Success"] = "Result captured successfully!";
+            return RedirectToAction(nameof(Results), new { eventId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateResult(
+            int eventId, int resultId, string finishTime, int? overallPosition, int? categoryPosition, decimal? pace, string status)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Organiser")
+                return RedirectToAction("Login", "Auth");
+
+            if (!TimeSpan.TryParse(finishTime, out var timeSpan))
+            {
+                TempData["Error"] = "Invalid finish time format. Use HH:mm:ss.";
+                return RedirectToAction(nameof(Results), new { eventId });
+            }
+
+            var payload = new
+            {
+                finishTime = timeSpan,
+                overallPosition,
+                categoryPosition,
+                pace,
+                status = string.IsNullOrEmpty(status) ? "Pending" : status
+            };
+
+            var success = await _api.UpdateResultAsync(Token!, resultId, payload);
+
+            if (!success)
+            {
+                TempData["Error"] = "Failed to update result.";
+                return RedirectToAction(nameof(Results), new { eventId });
+            }
+
+            TempData["Success"] = "Result updated successfully!";
+            return RedirectToAction(nameof(Results), new { eventId });
         }
 
         public IActionResult Logout()

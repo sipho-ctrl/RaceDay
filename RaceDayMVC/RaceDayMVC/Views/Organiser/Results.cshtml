@@ -1,0 +1,205 @@
+﻿@model RaceDayMVC.ViewModels.EventResultsViewModel
+@{
+    ViewData["Title"] = "Results Entry";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1"><i class="bi bi-trophy"></i> Capture Results</h1>
+        <p class="text-muted mb-0">
+            <strong>@Model.EventName</strong> — @Model.EventDate.ToString("dd MMM yyyy") · @Model.Location
+        </p>
+    </div>
+    <div>
+        <a asp-controller="Organiser" asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <h6 class="mb-0"><i class="bi bi-list-ul"></i> Participants (@Model.Enrolments.Count)</h6>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.Enrolments.Count == 0)
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-person-x text-muted" style="font-size:3rem;"></i>
+                <p class="mt-3 text-muted">No participants enrolled in this event.</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Participant</th>
+                        <th>Category</th>
+                        <th>Finish Time</th>
+                        <th>Overall Pos</th>
+                        <th>Cat Pos</th>
+                        <th>Pace (min/km)</th>
+                        <th>Status</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+                    @foreach (var e in Model.Enrolments.OrderBy(x => x.ParticipantName))
+                    {
+                        var existing = Model.GetResult(e.EnrolmentID);
+                        <tr>
+                            <td>@index</td>
+                            <td><strong>@e.ParticipantName</strong></td>
+                            <td><span class="badge bg-light text-dark border">@e.CategoryName</span></td>
+
+                            @if (existing != null)
+                            {
+                                <td>
+                                    <span class="badge bg-success">@existing.FinishTime.ToString(@"hh\:mm\:ss")</span>
+                                </td>
+                                <td>@existing.OverallPosition</td>
+                                <td>@existing.CategoryPosition</td>
+                                <td>@existing.Pace</td>
+                                <td><span class="status-badge status-confirmed">@existing.Status</span></td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editResultModal-@existing.ResultID">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td colspan="5" class="text-muted fst-italic">No result captured</td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-sm btn-raceday" data-bs-toggle="modal" data-bs-target="#createResultModal-@e.EnrolmentID">
+                                        <i class="bi bi-plus-circle"></i> Capture
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+
+                        <!-- CREATE MODAL for each enrolment -->
+                        @if (existing == null)
+                        {
+                            <div class="modal fade" id="createResultModal-@e.EnrolmentID" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form asp-controller="Organiser" asp-action="CreateResult" method="post">
+                                            <input type="hidden" name="eventId" value="@Model.EventID" />
+                                            <input type="hidden" name="enrolmentId" value="@e.EnrolmentID" />
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Capture Result — @e.ParticipantName</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Finish Time (HH:mm:ss)</label>
+                                                    <input type="text" name="finishTime" class="form-control" placeholder="02:30:00" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Overall Position</label>
+                                                    <input type="number" name="overallPosition" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Category Position</label>
+                                                    <input type="number" name="categoryPosition" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Pace (min/km)</label>
+                                                    <input type="number" step="0.01" name="pace" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Status</label>
+                                                    <select name="status" class="form-select">
+                                                        <option value="Confirmed">Confirmed</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Disqualified">Disqualified</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-raceday">Save Result</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- EDIT MODAL for existing result -->
+                        @if (existing != null)
+                        {
+                            <div class="modal fade" id="editResultModal-@existing.ResultID" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form asp-controller="Organiser" asp-action="UpdateResult" method="post">
+                                            <input type="hidden" name="eventId" value="@Model.EventID" />
+                                            <input type="hidden" name="resultId" value="@existing.ResultID" />
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Result — @e.ParticipantName</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Finish Time (HH:mm:ss)</label>
+                                                    <input type="text" name="finishTime" class="form-control" value="@existing.FinishTime.ToString(@"hh\:mm\:ss")" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Overall Position</label>
+                                                    <input type="number" name="overallPosition" class="form-control" value="@existing.OverallPosition" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Category Position</label>
+                                                    <input type="number" name="categoryPosition" class="form-control" value="@existing.CategoryPosition" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Pace (min/km)</label>
+                                                    <input type="number" step="0.01" name="pace" class="form-control" value="@existing.Pace" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Status</label>
+                                                    <select name="status" class="form-select">
+                                                        <option value="Confirmed" selected="@(existing.Status == "Confirmed")">Confirmed</option>
+                                                        <option value="Pending" selected="@(existing.Status == "Pending")">Pending</option>
+                                                        <option value="Disqualified" selected="@(existing.Status == "Disqualified")">Disqualified</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-raceday">Update Result</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        index++;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
