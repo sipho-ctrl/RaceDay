@@ -109,26 +109,111 @@ namespace RaceDayMVC.Controllers
             return RedirectToAction(nameof(EventDetail), new { id = eventId });
         }
 
-        // ============= PLACEHOLDERS (Steps 11) =============
-        public IActionResult MyEvents()
+        // ============= MY EVENTS =============
+        [HttpGet]
+        public async Task<IActionResult> MyEvents()
         {
             if (string.IsNullOrEmpty(Token) || Role != "Participant")
                 return RedirectToAction("Login", "Auth");
-            return Content("My Events — coming in Step 11");
+
+            var enrolments = await _api.GetMyEnrolmentsAsync(Token!);
+
+            var vm = new MyEventsViewModel
+            {
+                Enrolments = enrolments.OrderByDescending(e => e.EventDate).ToList()
+            };
+
+            return View(vm);
         }
 
-        public IActionResult MyResults()
+        // ============= MY RESULTS =============
+        [HttpGet]
+        public async Task<IActionResult> MyResults()
         {
             if (string.IsNullOrEmpty(Token) || Role != "Participant")
                 return RedirectToAction("Login", "Auth");
-            return Content("My Results — coming in Step 11");
+
+            var results = await _api.GetMyResultsAsync(Token!);
+
+            var vm = new MyResultsViewModel
+            {
+                Results = results.OrderByDescending(r => r.EventDate).ToList()
+            };
+
+            return View(vm);
         }
 
-        public IActionResult Profile()
+        // ============= PROFILE =============
+        [HttpGet]
+        public async Task<IActionResult> Profile()
         {
             if (string.IsNullOrEmpty(Token) || Role != "Participant")
                 return RedirectToAction("Login", "Auth");
-            return Content("Profile — coming in Step 11");
+
+            var profile = await _api.GetProfileAsync(Token!);
+            if (profile == null)
+            {
+                TempData["Error"] = "Could not load your profile.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var vm = new ParticipantProfileViewModel
+            {
+                Username = profile.Username,
+                Role = profile.Role,
+                Email = profile.Email,
+                FullName = profile.FullName ?? string.Empty,
+                DateOfBirth = profile.DateOfBirth,
+                Gender = profile.Gender,
+                ContactNumber = profile.ContactNumber,
+                EmergencyContact = profile.EmergencyContact,
+                ProfilePictureUrl = profile.ProfilePictureUrl
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(ParticipantProfileViewModel model)
+        {
+            if (string.IsNullOrEmpty(Token) || Role != "Participant")
+                return RedirectToAction("Login", "Auth");
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var payload = new
+            {
+                email = model.Email,
+                fullName = model.FullName,
+                dateOfBirth = model.DateOfBirth,
+                gender = model.Gender,
+                contactNumber = model.ContactNumber,
+                emergencyContact = model.EmergencyContact
+            };
+
+            var success = await _api.UpdateProfileAsync(Token!, payload);
+
+            if (!success)
+            {
+                TempData["Error"] = "Failed to update profile.";
+                return View(model);
+            }
+
+            // Profile picture upload (Step 12 will complete this)
+            if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+            {
+                var url = await _api.UploadProfilePictureAsync(Token!, model.ProfilePicture);
+                if (url == null)
+                {
+                    TempData["Error"] = "Profile updated, but picture upload failed.";
+                    return RedirectToAction(nameof(Profile));
+                }
+            }
+
+            TempData["Success"] = "Profile updated successfully!";
+            return RedirectToAction(nameof(Profile));
         }
 
         public IActionResult Logout()

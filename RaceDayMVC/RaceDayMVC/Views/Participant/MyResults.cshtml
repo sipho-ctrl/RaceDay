@@ -1,0 +1,98 @@
+﻿@model RaceDayMVC.ViewModels.MyResultsViewModel
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1"><i class="bi bi-trophy-fill"></i> My Results</h1>
+        <p class="text-muted mb-0">Your race history across all events</p>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Total Races Completed</p>
+                <h3 class="mb-0">@Model.TotalRaces</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Confirmed Results</p>
+                <h3 class="mb-0 text-success">@Model.ConfirmedResults</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Results.Count == 0)
+{
+    <div class="text-center py-5">
+        <i class="bi bi-clipboard-x text-muted" style="font-size:4rem;"></i>
+        <p class="mt-3 text-muted">No results yet. Complete a race to see your times here.</p>
+        <a asp-controller="Participant" asp-action="Index" class="btn btn-raceday">
+            <i class="bi bi-search"></i> Browse Events
+        </a>
+    </div>
+}
+else
+{
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Finish Time</th>
+                        <th>Overall</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.Results)
+                    {
+                        var statusClass = r.Status == "Confirmed" ? "status-confirmed" : "status-pending";
+                        <tr>
+                            <td><strong>@r.EventName</strong></td>
+                            <td>@r.EventDate.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <span class="badge bg-light text-dark border">@r.CategoryName</span>
+                            </td>
+                            <td>
+                                <strong class="text-primary">@r.FinishTime.ToString(@"hh\:mm\:ss")</strong>
+                            </td>
+                            <td>
+                                @if (r.OverallPosition.HasValue)
+                                {
+                                    <span>@r.OverallPosition</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+                            <td>
+                                @if (r.CategoryPosition.HasValue)
+                                {
+                                    <span>@r.CategoryPosition</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+                            <td><span class="status-badge @statusClass">@r.Status</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
